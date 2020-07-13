@@ -5,6 +5,7 @@ from sqlalchemy import MetaData, Table
 from sqlalchemy.engine import create_engine
 from sqlalchemy.sql import select
 import sys
+import os
 
 import injector
 
@@ -25,8 +26,8 @@ class BigQuery(RetrieverAbs):
         super().__init__()
 
         self.gcp_project = bigquery.Client().project
-        self.dataset = "my_dataset"
-        self.table = "my_table"
+        self.dataset = os.environ.get("BIGQUERY_DATASET")
+        self.table = os.environ.get("BIGQUERY_TABLE")
         bigquery_uri = f"bigquery://{self.gcp_project}/{self.dataset}"
 
         self.engine = create_engine(bigquery_uri)

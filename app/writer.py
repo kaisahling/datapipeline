@@ -1,12 +1,10 @@
 from abc import ABC, abstractmethod
-import tempfile
-
 import psycopg2
 import sys
 import os
-import csv
-from io import StringIO
 from sqlalchemy import create_engine
+import pandas as pd
+
 
 class WriterAbs(ABC):
     def __init__(self):
@@ -15,6 +13,7 @@ class WriterAbs(ABC):
     @abstractmethod
     def write(self):
         pass
+
 
 class PostgreSQLDatabase:
     def __init__(self):
@@ -37,12 +36,14 @@ class PostgreSQLDatabase:
         :param data: DataFrame
         """
         try:
+            df = pd.DataFrame(data.items(), columns=['user', 'result'])
             print("Connecting to Database")
             conn = psycopg2.connect(database=self.dbname, host=self.host, port=self.port,
                                     user=self.user, password=self.pwd)
             url = f'postgresql://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.dbname}'
             engine = create_engine(url)
-            data.to_sql(self.table, engine, method='multi', if_exists='append', schema='dev', index=False, chunksize=1000)
+            data.to_sql(self.table, engine, method='multi', if_exists='append', schema='dev', index=False,
+                        chunksize=1000)
             rows = len(data)
             print(f"{rows} rows moved to the database")
             conn.close()
