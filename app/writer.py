@@ -5,8 +5,9 @@ import os
 from sqlalchemy import create_engine
 import pandas as pd
 
+import injector
 
-class WriterAbs(ABC):
+class WriterAbs(ABC, injector.Module):
     def __init__(self):
         pass
 

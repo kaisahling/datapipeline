@@ -36,7 +36,7 @@ def create_app(*,
             return jsonify("Please provide a valid user id")
 
         data = retriever.get(user)
-        result = {user:model.apply(data)}
+        result = {user: model.apply(data)}
         writer.write(result)
         return jsonify("Model applied")
 
