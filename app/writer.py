@@ -45,8 +45,6 @@ class PostgreSQLDatabase:
             engine = create_engine(url)
             data.to_sql(self.table, engine, method='multi', if_exists='append', schema='dev', index=False,
                         chunksize=1000)
-            rows = len(data)
-            print(f"{rows} rows moved to the database")
             conn.close()
             print("DB connection closed.")
         except Exception as e:
