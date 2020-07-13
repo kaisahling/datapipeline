@@ -1,0 +1,8 @@
+# Env
+.venv
+
+# IDE
+.idea
+
+# Random stuff
+.DS_Store
