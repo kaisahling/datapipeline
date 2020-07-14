@@ -6,3 +6,6 @@
 
 # Random stuff
 .DS_Store
+
+# Temp stuff
+.pytest_cache
