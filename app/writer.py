@@ -7,6 +7,7 @@ import pandas as pd
 
 import injector
 
+
 class WriterAbs(ABC, injector.Module):
     def __init__(self):
         pass
@@ -43,7 +44,7 @@ class PostgreSQLDatabase:
                                     user=self.user, password=self.pwd)
             url = f'postgresql://{self.user}:{self.pwd}@{self.host}:{self.port}/{self.dbname}'
             engine = create_engine(url)
-            data.to_sql(self.table, engine, method='multi', if_exists='append', schema='dev', index=False,
+            df.to_sql(self.table, engine, method='multi', if_exists='append', schema='dev', index=False,
                         chunksize=1000)
             conn.close()
             print("DB connection closed.")
