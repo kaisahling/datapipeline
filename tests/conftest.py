@@ -34,17 +34,7 @@ def test_configure(binder):
 
 
 @pytest.fixture
-def test_injector():
-    return Injector()
-
-
-@pytest.fixture
-def test_dependencies():
-    return test_configure
-
-
-@pytest.fixture
-def app(test_dependencies):
+def app():
     app = create_app(
         retriever_class=MockInput,
         writer_class=MockOutput,
